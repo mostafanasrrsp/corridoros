@@ -1,0 +1,203 @@
+version: '3.8'
+
+services:
+  corrd:
+    build:
+      context: .
+      dockerfile: docker/corrd/Dockerfile
+    container_name: corridoros-corrd
+    ports:
+      - "8080:8080"
+    environment:
+      - CORRD_LOG_LEVEL=info
+      - CORRD_CONFIG_PATH=/etc/corridoros/corrd.conf
+    volumes:
+      - ./config:/etc/corridoros:ro
+      - corridoros-data:/var/lib/corridoros
+    networks:
+      - corridoros
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  memqosd:
+    build:
+      context: .
+      dockerfile: docker/memqosd/Dockerfile
+    container_name: corridoros-memqosd
+    ports:
+      - "8081:8081"
+    environment:
+      - MEMQOSD_LOG_LEVEL=info
+      - MEMQOSD_CONFIG_PATH=/etc/corridoros/memqosd.conf
+    volumes:
+      - ./config:/etc/corridoros:ro
+      - corridoros-data:/var/lib/corridoros
+    networks:
+      - corridoros
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  fabmand:
+    build:
+      context: .
+      dockerfile: docker/fabmand/Dockerfile
+    container_name: corridoros-fabmand
+    ports:
+      - "8083:8083"
+    environment:
+      - FABMAND_LOG_LEVEL=info
+      - FABMAND_CONFIG_PATH=/etc/corridoros/fabmand.conf
+    volumes:
+      - ./config:/etc/corridoros:ro
+      - corridoros-data:/var/lib/corridoros
+    networks:
+      - corridoros
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  heliopassd:
+    build:
+      context: .
+      dockerfile: docker/heliopassd/Dockerfile
+    container_name: corridoros-heliopassd
+    ports:
+      - "8082:8082"
+    environment:
+      - HELIOPASSD_LOG_LEVEL=info
+      - HELIOPASSD_CONFIG_PATH=/etc/corridoros/heliopassd.conf
+    volumes:
+      - ./config:/etc/corridoros:ro
+      - corridoros-data:/var/lib/corridoros
+    networks:
+      - corridoros
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  attestd:
+    build:
+      context: .
+      dockerfile: docker/attestd/Dockerfile
+    container_name: corridoros-attestd
+    ports:
+      - "8084:8084"
+    environment:
+      - ATTESTD_LOG_LEVEL=info
+      - ATTESTD_CONFIG_PATH=/etc/corridoros/attestd.conf
+    volumes:
+      - ./config:/etc/corridoros:ro
+      - corridoros-data:/var/lib/corridoros
+    networks:
+      - corridoros
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  physics-decoder:
+    build:
+      context: .
+      dockerfile: docker/physics-decoder/Dockerfile
+    container_name: corridoros-physics-decoder
+    ports:
+      - "8085:8085"
+    environment:
+      - PHYSICS_DECODER_LOG_LEVEL=info
+    networks:
+      - corridoros
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  helio-sim:
+    build:
+      context: .
+      dockerfile: docker/helio-sim/Dockerfile
+    container_name: corridoros-helio-sim
+    ports:
+      - "8086:8086"
+    environment:
+      - HELIO_SIM_LOG_LEVEL=info
+    networks:
+      - corridoros
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Prometheus for monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: corridoros-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - corridoros
+    restart: unless-stopped
+
+  # Optional: Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: corridoros-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=corridoros
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    networks:
+      - corridoros
+    restart: unless-stopped
+
+volumes:
+  corridoros-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+networks:
+  corridoros:
+    driver: bridge

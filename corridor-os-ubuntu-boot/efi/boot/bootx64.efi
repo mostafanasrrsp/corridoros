@@ -1,0 +1,2 @@
+# This is a placeholder for UEFI boot
+# In a real implementation, this would be a compiled EFI binary

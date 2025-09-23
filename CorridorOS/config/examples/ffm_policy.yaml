@@ -1,0 +1,17 @@
+# ffm_policy.yaml — Free-Form Memory policy example
+tiers:
+  T0: { desc: HBM, gbps_hint: 1000 }
+  T1: { desc: DDR5, gbps_hint: 200 }
+  T2: { desc: CXL_DRAM, gbps_hint: 150 }
+  T3: { desc: Persistent, gbps_hint: 20 }
+
+bundles:
+  - name: inferenceA
+    bytes: 256GiB
+    latency_class: T2
+    bandwidth_floor_GBs: 150
+    shareable: true
+    security_domain: tenantA
+    schedule:
+      offpeak: { floor_GBs: 200 }
+      peak:    { floor_GBs: 120 }

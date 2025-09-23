@@ -1,0 +1,13 @@
+# corridor_policy.yaml — photonic policy example
+corridors:
+  - name: primary-si
+    type: SiCorridor
+    lanes: 8
+    lambda_nm: [1550,1551,1552,1553,1554,1555,1556,1557]
+    qos:
+      min_gbps: 400
+      latency_budget_ns: 250
+      priority: gold
+    calibration:
+      target_ber: 1.0e-12
+      ambient_profile: lab_default

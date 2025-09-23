@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Corridor OS
+Comment=Hybrid Quantum-Photonic Operating System
+Exec=./launch-corridor-ubuntu.sh
+Icon=corridor-os/corridor-os.html
+Terminal=false
+Categories=System;

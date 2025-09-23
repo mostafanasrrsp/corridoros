@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CorridorOS Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0f3157;--panel:#173e6d;--accent:#17d17d;--warn:#d1a117;--text:#eff6ff;}
+  body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#0e2745 0%, #0b2038 100%);color:var(--text);}
+  .wrap{max-width:1080px;margin:40px auto;padding:0 16px;}
+  h1{margin:0 0 4px;font-weight:800;}
+  h2{font-weight:800;font-size:18px;margin:0 0 16px}
+  .subtitle{opacity:.8;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .card{background:var(--panel);border-radius:16px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.35)}
+  label{display:block;font-size:12px;opacity:.9;margin:10px 0 6px}
+  input,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#102a4a;color:#fff}
+  .row{display:flex;gap:10px;margin-top:12px}
+  button{background:#1e5ebb;color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}
+  button.secondary{background:#334e75}
+  .dot{width:8px;height:8px;border-radius:9999px;display:inline-block;margin-right:8px}
+  .ok{background:#19d38b}.bad{background:#ff5252}
+  table{width:100%;border-collapse:collapse;margin-top:10px}
+  td{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .muted{opacity:.8}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>CorridorOS Dashboard</h1>
+    <div class="subtitle">Photonic Interconnect & Free‑Form Memory Management Console (DEV)</div>
+
+    <div class="grid">
+      <div class="card">
+        <h2><span class="dot ok" id="corrdDot"></span>Photonic Corridors</h2>
+        <label>Number of Lanes</label><input id="lanes" type="number" value="8"/>
+        <label>Starting Wavelength (nm)</label><input id="lambdaStart" type="number" value="1550"/>
+        <label>Minimum Bandwidth (Gbps)</label><input id="minGbps" type="number" value="400"/>
+        <label>Latency Budget (ns)</label><input id="latNs" type="number" value="250"/>
+        <div class="row">
+          <button onclick="allocCorridor()">Allocate Corridor</button>
+          <button class="secondary" onclick="clearForm()">Clear</button>
+        </div>
+        <div id="corrResult" class="muted" style="margin-top:8px;"></div>
+      </div>
+
+      <div class="card">
+        <h2><span class="dot ok" id="memDot"></span>Free‑Form Memory (FFM)</h2>
+        <label>Memory Size</label><input id="memSize" type="text" value="256 GiB"/>
+        <label>Latency Tier</label>
+        <select id="tier">
+          <option value="T1">T1 - DRAM (low latency)</option>
+          <option value="T2" selected>T2 - CXL (medium latency)</option>
+          <option value="T3">T3 - Persistent</option>
+        </select>
+        <label>Bandwidth Floor (GBps)</label><input id="bw" type="number" value="150"/>
+        <div class="row">
+          <button onclick="allocMem()">Allocate Memory</button>
+          <button class="secondary" onclick="clearMem()">Clear</button>
+        </div>
+        <div id="memResult" class="muted" style="margin-top:8px;"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:24px">
+      <h2>System Status</h2>
+      <table>
+        <tr><td>corrd Service</td><td id="corrdStatus" class="muted">Checking…</td></tr>
+        <tr><td>memqosd Service</td><td id="memStatus" class="muted">Checking…</td></tr>
+        <tr><td>Active Corridors</td><td id="cntCorr">0</td></tr>
+        <tr><td>Allocated Memory</td><td id="cntMem">0</td></tr>
+      </table>
+    </div>
+  </div>
+
+<script>
+async function ping() {
+  try {
+    const a = await fetch('/health/corrd'); 
+    document.getElementById('corrdStatus').innerText = a.ok ? 'Online' : 'Offline';
+    document.getElementById('corrdDot').className = 'dot ' + (a.ok ? 'ok' : 'bad');
+  } catch { document.getElementById('corrdStatus').innerText = 'Offline'; document.getElementById('corrdDot').className = 'dot bad'; }
+  try {
+    const b = await fetch('/health/memqosd'); 
+    document.getElementById('memStatus').innerText = b.ok ? 'Online' : 'Offline';
+    document.getElementById('memDot').className = 'dot ' + (b.ok ? 'ok' : 'bad');
+  } catch { document.getElementById('memStatus').innerText = 'Offline'; document.getElementById('memDot').className = 'dot bad'; }
+}
+ping(); setInterval(ping, 3000);
+
+function clearForm(){ document.getElementById('lanes').value=8; document.getElementById('lambdaStart').value=1550; document.getElementById('minGbps').value=400; document.getElementById('latNs').value=250; document.getElementById('corrResult').innerText=''; }
+function clearMem(){ document.getElementById('memSize').value='256 GiB'; document.getElementById('tier').value='T2'; document.getElementById('bw').value=150; document.getElementById('memResult').innerText=''; }
+
+async function allocCorridor(){
+  const lanes = parseInt(document.getElementById('lanes').value,10);
+  const start = parseInt(document.getElementById('lambdaStart').value,10);
+  const minGbps = parseInt(document.getElementById('minGbps').value,10);
+  const latNs = parseInt(document.getElementById('latNs').value,10);
+  const lambda = Array.from({length:lanes}, (_,i)=>start+i);
+  const res = await fetch('/v1/corridors', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({type:'SiCorridor', lanes, lambda_nm:lambda, min_gbps:minGbps, latency_budget_ns:latNs, reach_mm:75, mode:'waveguide', qos:{pfc:true, priority:'gold'}, attestation_required:true})});
+  const j = await res.json(); 
+  document.getElementById('corrResult').innerText = 'Allocated: '+ (j.corridor_id || JSON.stringify(j));
+  const cnt = document.getElementById('cntCorr'); cnt.innerText = String(parseInt(cnt.innerText,10)+1);
+}
+
+async function allocMem(){
+  // crude GiB parse
+  let sizeText = (document.getElementById('memSize').value||'256 GiB').trim().toUpperCase();
+  let bytes = 256*1024*1024*1024;
+  if (sizeText.endsWith('GIB')) bytes = parseInt(sizeText)*1024*1024*1024;
+  else if (sizeText.endsWith('GB')) bytes = parseInt(sizeText)*1000*1000*1000;
+  const tier = document.getElementById('tier').value;
+  const bw = parseInt(document.getElementById('bw').value,10);
+  const res = await fetch('/v1/ffm/alloc',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({bytes, latency_class:tier, bandwidth_floor_GBs:bw, persistence:'none', shareable:true, security_domain:'tenantA'})});
+  const j = await res.json();
+  document.getElementById('memResult').innerText = 'Allocated: '+ (j.ffm_handle || JSON.stringify(j));
+  const cnt = document.getElementById('cntMem'); 
+  const prev = parseInt(cnt.innerText,10);
+  cnt.innerText = String(prev + (bytes/(1024*1024*1024)));
+}
+</script>
+</body>
+</html>

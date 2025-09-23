@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorridorOS - Photonic Interconnect Operating System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #999;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid #00d4ff;
+            border-radius: 8px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #00d4ff;
+            color: #000;
+            transform: translateY(-2px);
+        }
+        
+        .btn.primary {
+            background: #00d4ff;
+            color: #000;
+        }
+        
+        .btn.primary:hover {
+            background: #0099cc;
+            color: #fff;
+        }
+        
+        .features {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature h3 {
+            margin: 0 0 1rem 0;
+            color: #00d4ff;
+        }
+        
+        .feature p {
+            margin: 0;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 20px;
+            color: #00ff00;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="status">🟢 Live on Netlify</div>
+    
+    <div class="container">
+        <div class="logo">CorridorOS</div>
+        <div class="subtitle">Photonic Interconnect Operating System</div>
+        
+        <div class="description">
+            Advanced operating system for managing photonic interconnects and pooled memory. 
+            Experience the future of computing with quantum-inspired memory management and 
+            light-speed data transmission.
+        </div>
+        
+        <div class="buttons">
+            <a href="/corridoros_advanced.html" class="btn primary">🚀 Launch OS Simulator</a>
+            <a href="/corridoros_dashboard.html" class="btn">🔧 Engineering Dashboard</a>
+            <a href="/corridoros_simulator.html" class="btn">⚡ Quick Demo</a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>🌐 Photonic Corridors</h3>
+                <p>Manage optical lanes with wavelength allocation and latency optimization</p>
+            </div>
+            <div class="feature">
+                <h3>💾 Free-Form Memory</h3>
+                <p>Property-based memory allocation with tier management and bandwidth floors</p>
+            </div>
+            <div class="feature">
+                <h3>🔒 Attestation Security</h3>
+                <p>Hardware-backed security with ticket-based resource allocation</p>
+            </div>
+            <div class="feature">
+                <h3>⚡ Real-time Monitoring</h3>
+                <p>Live telemetry and system health monitoring with quantum metrics</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

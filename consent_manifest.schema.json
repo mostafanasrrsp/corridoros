@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CorridorLabs Consent Manifest",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "women_led_governance": {
+      "type": "boolean"
+    },
+    "data_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "operations_allowed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "anonymity": {
+      "type": "string",
+      "enum": [
+        "none",
+        "pseudonymized",
+        "anonymized"
+      ]
+    },
+    "storage_location": {
+      "type": "string"
+    },
+    "retention_days": {
+      "type": "integer"
+    },
+    "withdrawal_procedure": {
+      "type": "string"
+    },
+    "risk_assessment": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "purpose",
+    "women_led_governance",
+    "operations_allowed",
+    "anonymity",
+    "withdrawal_procedure",
+    "contact"
+  ]
+}

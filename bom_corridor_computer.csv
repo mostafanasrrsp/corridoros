@@ -1,0 +1,8 @@
+Item,Category,Description,Part Number,Qty,Notes
+Chassis,Mechanical,"14"" carbon lid + Mg deck",TBD,1,312×220×15 mm
+Hinge,Mechanical,"Dual hinge, 180°",TBD,1,Torque 0.35–0.5 N·m
+Display,Electrical,"14.0"" 2560×1600 120 Hz matte",TBD,1,eDP 40‑pin
+Photonic Bay,Electrical,Silicon‑photonic mezzanine,TBD,1,20–30 W
+Optical Bulkhead,Optics,"2× LC duplex, recessed",TBD,1,OPT‑A/OPT‑B
+ALS Sensor,Sensors,Ambient light sensor,TBD,1,HELIOPASS input
+IMU,Sensors,9‑axis IMU,TBD,1,Geometry estimation

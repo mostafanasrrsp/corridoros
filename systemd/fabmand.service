@@ -1,0 +1,38 @@
+[Unit]
+Description=CorridorOS Fabric Manager Daemon
+Documentation=https://github.com/corridoros/corridoros
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=corridoros
+Group=corridoros
+ExecStart=/usr/local/bin/fabmand
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=fabmand
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/corridoros
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# Environment
+Environment=FABMAND_LOG_LEVEL=info
+Environment=FABMAND_CONFIG_PATH=/etc/corridoros/fabmand.conf
+
+[Install]
+WantedBy=multi-user.target

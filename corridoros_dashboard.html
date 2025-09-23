@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorridorOS Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            color: #2a5298;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card h2 {
+            color: #2a5298;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 0.5rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .result pre {
+            white-space: pre-wrap;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-value {
+            font-weight: 600;
+            color: #2a5298;
+        }
+        
+        .wavelength-viz {
+            display: flex;
+            gap: 2px;
+            margin: 1rem 0;
+        }
+        
+        .wavelength-bar {
+            width: 20px;
+            height: 40px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .error {
+            background: #ffe6e6;
+            border-left: 4px solid #dc3545;
+            color: #dc3545;
+        }
+        
+        .success {
+            background: #e6ffe6;
+            border-left: 4px solid #28a745;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CorridorOS Dashboard</h1>
+        <p>Photonic Interconnect & Free-Form Memory Management Console</p>
+    </div>
+    
+    <div class="container">
+        <div class="grid">
+            <!-- Photonic Corridors -->
+            <div class="card">
+                <h2>
+                    <span class="status-indicator"></span>
+                    Photonic Corridors
+                </h2>
+                
+                <form id="corridor-form">
+                    <div class="form-group">
+                        <label>Number of Lanes:</label>
+                        <input type="number" id="lanes" value="8" min="1" max="16">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Starting Wavelength (nm):</label>
+                        <input type="number" id="lambda-start" value="1550" min="1500" max="1600">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Minimum Bandwidth (Gbps):</label>
+                        <input type="number" id="min-gbps" value="400" min="100" max="1000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Latency Budget (ns):</label>
+                        <input type="number" id="latency-ns" value="250" min="50" max="1000">
+                    </div>
+                    
+                    <button type="submit" class="btn">Allocate Corridor</button>
+                    <button type="button" class="btn" onclick="clearResults('corridor-result')">Clear</button>
+                </form>
+                
+                <div id="corridor-result" class="result" style="display: none;"></div>
+                <div id="wavelength-viz"></div>
+            </div>
+            
+            <!-- Free-Form Memory -->
+            <div class="card">
+                <h2>
+                    <span class="status-indicator"></span>
+                    Free-Form Memory (FFM)
+                </h2>
+                
+                <form id="ffm-form">
+                    <div class="form-group">
+                        <label>Memory Size:</label>
+                        <select id="memory-size">
+                            <option value="1073741824">1 GB</option>
+                            <option value="8589934592">8 GB</option>
+                            <option value="17179869184">16 GB</option>
+                            <option value="34359738368">32 GB</option>
+                            <option value="68719476736">64 GB</option>
+                            <option value="137438953472">128 GB</option>
+                            <option value="274877906944" selected>256 GB</option>
+                            <option value="549755813888">512 GB</option>
+                            <option value="1099511627776">1 TB</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Latency Tier:</label>
+                        <select id="tier">
+                            <option value="T0">T0 - HBM (Ultra-low latency)</option>
+                            <option value="T1">T1 - DRAM (Low latency)</option>
+                            <option value="T2" selected>T2 - CXL (Medium latency)</option>
+                            <option value="T3">T3 - Persistent (High latency)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Bandwidth Floor (Gbps):</label>
+                        <input type="number" id="bw-floor" value="150" min="10" max="1000">
+                    </div>
+                    
+                    <button type="submit" class="btn">Allocate Memory</button>
+                    <button type="button" class="btn" onclick="clearResults('ffm-result')">Clear</button>
+                </form>
+                
+                <div id="ffm-result" class="result" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- System Status -->
+        <div class="card">
+            <h2>System Status</h2>
+            <div class="metric">
+                <span>corrd Service</span>
+                <span class="metric-value" id="corrd-status">Checking...</span>
+            </div>
+            <div class="metric">
+                <span>memqosd Service</span>
+                <span class="metric-value" id="memqosd-status">Checking...</span>
+            </div>
+            <div class="metric">
+                <span>Active Corridors</span>
+                <span class="metric-value" id="active-corridors">0</span>
+            </div>
+            <div class="metric">
+                <span>Allocated Memory</span>
+                <span class="metric-value" id="allocated-memory">0 GB</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const BASE_URL = 'http://localhost:7080';
+        let corridorCount = 0;
+        let totalMemory = 0;
+        
+        // Form handlers
+        document.getElementById('corridor-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await allocateCorridor();
+        });
+        
+        document.getElementById('ffm-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await allocateFFM();
+        });
+        
+        // Corridor allocation
+        async function allocateCorridor() {
+            const lanes = parseInt(document.getElementById('lanes').value);
+            const lambdaStart = parseInt(document.getElementById('lambda-start').value);
+            const minGbps = parseInt(document.getElementById('min-gbps').value);
+            const latencyNs = parseInt(document.getElementById('latency-ns').value);
+            
+            const payload = {
+                type: "SiCorridor",
+                lanes: lanes,
+                lambda_nm: Array.from({length: lanes}, (_, i) => lambdaStart + i),
+                min_gbps: minGbps,
+                latency_budget_ns: latencyNs,
+                reach_mm: 75,
+                mode: "waveguide",
+                qos: {pfc: true, priority: "gold"},
+                attestation_required: true
+            };
+            
+            try {
+                const response = await fetch(`${BASE_URL}/v1/corridors`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                showResult('corridor-result', result, 'success');
+                updateWavelengthViz(result.lambda_nm);
+                corridorCount++;
+                updateStatus();
+            } catch (error) {
+                showResult('corridor-result', `Error: ${error.message}`, 'error');
+            }
+        }
+        
+        // FFM allocation
+        async function allocateFFM() {
+            const bytes = parseInt(document.getElementById('memory-size').value);
+            const tier = document.getElementById('tier').value;
+            const bwFloor = parseInt(document.getElementById('bw-floor').value);
+            
+            const payload = {
+                bytes: bytes,
+                latency_class: tier,
+                bandwidth_floor_GBs: bwFloor,
+                persistence: "none",
+                shareable: true,
+                security_domain: "tenantA"
+            };
+            
+            try {
+                const response = await fetch(`${BASE_URL}/v1/ffm/alloc`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                showResult('ffm-result', result, 'success');
+                totalMemory += bytes / (1024**3); // Convert to GB
+                updateStatus();
+            } catch (error) {
+                showResult('ffm-result', `Error: ${error.message}`, 'error');
+            }
+        }
+        
+        // Show result
+        function showResult(elementId, data, type) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = `result ${type}`;
+            element.innerHTML = `<pre>${typeof data === 'string' ? data : JSON.stringify(data, null, 2)}</pre>`;
+        }
+        
+        // Clear results
+        function clearResults(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'none';
+        }
+        
+        // Update wavelength visualization
+        function updateWavelengthViz(wavelengths) {
+            const viz = document.getElementById('wavelength-viz');
+            viz.innerHTML = wavelengths.map(wl => {
+                const hue = ((wl - 1500) / 200) * 240; // Map 1500-1700nm to 0-240 hue
+                return `<div class="wavelength-bar" style="background: hsl(${hue}, 70%, 50%)" title="${wl}nm">${wl}</div>`;
+            }).join('');
+        }
+        
+        // Check service status
+        async function checkServiceStatus() {
+            try {
+                const response = await fetch(`${BASE_URL}/health`);
+                const result = await response.json();
+                document.getElementById('corrd-status').textContent = result.status === 'healthy' ? 'Online' : 'Offline';
+                document.getElementById('corrd-status').style.color = result.status === 'healthy' ? '#28a745' : '#dc3545';
+            } catch {
+                document.getElementById('corrd-status').textContent = 'Offline';
+                document.getElementById('corrd-status').style.color = '#dc3545';
+            }
+            
+            try {
+                const response = await fetch('http://localhost:7070/health');
+                document.getElementById('memqosd-status').textContent = 'Online';
+                document.getElementById('memqosd-status').style.color = '#28a745';
+            } catch {
+                document.getElementById('memqosd-status').textContent = 'Offline';
+                document.getElementById('memqosd-status').style.color = '#dc3545';
+            }
+        }
+        
+        // Update system status
+        function updateStatus() {
+            document.getElementById('active-corridors').textContent = corridorCount;
+            document.getElementById('allocated-memory').textContent = `${totalMemory.toFixed(1)} GB`;
+        }
+        
+        // Initialize
+        checkServiceStatus();
+        setInterval(checkServiceStatus, 10000); // Check every 10 seconds
+    </script>
+</body>
+</html>

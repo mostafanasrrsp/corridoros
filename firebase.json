@@ -1,0 +1,73 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.md",
+      "**/*.pdf",
+      "**/*.mp4",
+      "**/*.dxf",
+      "**/*.csv",
+      "**/*.zip",
+      "**/*.tar.gz",
+      "**/*.py",
+      ".github/**",
+      "TheKernel/**",
+      "dist/**",
+      "tactile-power-toolkit/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/os",
+        "destination": "/corridor-os.html"
+      },
+      {
+        "source": "/computer",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/",
+        "destination": "/corridor-os.html"
+      },
+      {
+        "source": "**",
+        "destination": "/corridor-os.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31536000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(html)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=3600"
+          }
+        ]
+      },
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          }
+        ]
+      }
+    ]
+  }
+}

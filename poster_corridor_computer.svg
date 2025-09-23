@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1350" viewBox="0 0 2400 1350"><rect width="100%" height="100%" fill="#0B1220"/><text x="80" y="110" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="64" fill="#E6F0FF" text-anchor="start">CORRIDOR COMPUTER</text>
+<text x="80" y="160" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="36" fill="#E6F0FF" text-anchor="start">HYBRID QUANTUM–PHOTONIC NODE</text>
+<rect x="80" y="180" width="2240" height="90" rx="16" stroke="#4CF1FF" stroke-width="3" fill="none"/>
+<text x="104" y="238" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="28" fill="#4CF1FF" text-anchor="start">HELIOPASS: lunar • zodiacal • airglow • galactic • skyglow → background offset</text>
+<rect x="80" y="300" width="720" height="640" rx="18" stroke="#4CF1FF" stroke-width="3" fill="none"/>
+<text x="104" y="360" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="42" fill="#4CF1FF" text-anchor="start">PHOTONIC LINEAR UNIT</text>
+<text x="104" y="420" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="26" fill="#A0B2D2" text-anchor="start">Matrix/FFT tiles • WDM channels • Analog → calibrated</text>
+<line x1="120" y1="480" x2="760" y2="480" stroke="#4CF1FF" stroke-width="4" />
+<line x1="120" y1="560" x2="760" y2="560" stroke="#4CF1FF" stroke-width="4" />
+<line x1="120" y1="640" x2="760" y2="640" stroke="#4CF1FF" stroke-width="4" />
+<line x1="120" y1="720" x2="760" y2="720" stroke="#4CF1FF" stroke-width="4" />
+<line x1="120" y1="800" x2="760" y2="800" stroke="#4CF1FF" stroke-width="4" />
+<line x1="120" y1="880" x2="760" y2="880" stroke="#4CF1FF" stroke-width="4" />
+<rect x="880" y="300" width="620" height="640" rx="18" stroke="#FFD200" stroke-width="3" fill="none"/>
+<text x="904" y="360" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="42" fill="#FFD200" text-anchor="start">FREE‑FORM MEMORY MESH</text>
+<text x="904" y="420" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="26" fill="#A0B2D2" text-anchor="start">Unified optical/quantum leases • single‑consume buffers</text>
+<circle cx="1190.0" cy="620.0" r="220" stroke="#FFD200" stroke-width="6" fill="none" />
+<circle cx="1190.0" cy="620.0" r="170" stroke="#FF57B4" stroke-width="6" fill="none" />
+<circle cx="1190.0" cy="620.0" r="120" stroke="#91FF79" stroke-width="6" fill="none" />
+<rect x="1580" y="300" width="640" height="640" rx="18" stroke="#FF57B4" stroke-width="3" fill="none"/>
+<text x="1604" y="360" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="42" fill="#FF57B4" text-anchor="start">QUANTUM CO‑PROCESSOR</text>
+<text x="1604" y="420" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="26" fill="#A0B2D2" text-anchor="start">Variational refinement • single‑consume results</text>
+<circle cx="1700" cy="520" r="10" fill="#FF57B4"/><text x="1718" y="528" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="22" fill="#FF57B4" text-anchor="start">q0</text>
+<circle cx="1800" cy="600" r="10" fill="#FF57B4"/><text x="1818" y="608" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="22" fill="#FF57B4" text-anchor="start">q1</text>
+<circle cx="1900" cy="520" r="10" fill="#FF57B4"/><text x="1918" y="528" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="22" fill="#FF57B4" text-anchor="start">q2</text>
+<circle cx="2000" cy="600" r="10" fill="#FF57B4"/><text x="2018" y="608" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="22" fill="#FF57B4" text-anchor="start">q3</text>
+<circle cx="2100" cy="520" r="10" fill="#FF57B4"/><text x="2118" y="528" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="22" fill="#FF57B4" text-anchor="start">q4</text>
+<rect x="1020" y="980" width="1100" height="220" rx="18" stroke="#E6F0FF" stroke-width="3" fill="none"/>
+<text x="1044" y="1040" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="42" fill="#E6F0FF" text-anchor="start">HOST ORCHESTRATOR</text>
+<text x="1044" y="1090" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="26" fill="#A0B2D2" text-anchor="start">CUDA‑style scheduling • sprint{} bursts • snapshots • permissions</text>
+<rect x="80" y="980" width="1200" height="220" rx="18" stroke="#91FF79" stroke-width="3" fill="none"/>
+<text x="104" y="1040" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="42" fill="#91FF79" text-anchor="start">SKEWED APERTURE GEOMETRY</text>
+<text x="104" y="1090" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="26" fill="#A0B2D2" text-anchor="start">Yaw/Pitch (φ, ψ), Shear (κx, κy) • corridor transfer</text>
+<polyline points="760,1040 1080,1060 1060,1160 740,1140 760,1040" fill="none" stroke="#91FF79" stroke-width="4"/><line x1="800" y1="620.0" x2="880" y2="620.0" stroke="#4CF1FF" stroke-width="8" />
+<line x1="1500" y1="620.0" x2="1580" y2="620.0" stroke="#FFD200" stroke-width="8" />
+<text x="80" y="1310" font-family="Inter,IBMPlexSans,Arial" font-weight="700" font-size="20" fill="#A0B2D2" text-anchor="start">© 2025 Mostafa Nasr — Corridor Computer Concept</text>
+</svg>
