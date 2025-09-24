@@ -17,7 +17,10 @@ def deploy_to_surge():
     
     try:
         # Create surge deployment
-        cmd = ["surge", "--project", ".", "--domain", "corridoros.surge.sh"]
+        import random
+        import string
+        random_domain = ''.join(random.choices(string.ascii_lowercase, k=8)) + '.surge.sh'
+        cmd = ["surge", "--project", ".", "--domain", random_domain]
         
         # Start the process
         process = subprocess.Popen(
@@ -37,7 +40,7 @@ def deploy_to_surge():
         
         if "Success!" in output:
             print("✅ Deployment successful!")
-            print("🌐 Your site is live at: https://corridoros.surge.sh")
+            print(f"🌐 Your site is live at: https://{random_domain}")
         else:
             print("❌ Deployment may have failed. Check output above.")
             
