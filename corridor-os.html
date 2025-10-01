@@ -2,11 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corridor OS - Hybrid Quantum-Photonic Operating System</title>
-    <link rel="stylesheet" href="corridor-os-styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%2300d4ff'/></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>LightCorridorComputer v6 - Quantum-Photonic Hybrid Operating System</title>
+    <meta name="description" content="Interactive LightCorridorComputer demo - Experience quantum-photonic hybrid processing, Free-Form Memory architecture, and Collective Synchrony Analytics in real-time.">
+    <meta name="keywords" content="LightCorridorComputer demo, quantum-photonic hybrid, free-form memory, collective synchrony analytics, light corridor processing, neural network memory, interactive demo, next-generation OS">
+    <meta name="corridoros-version" content="v6">
+    <meta name="theme-color" content="#00c8ff">
+    <meta name="color-scheme" content="dark light">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="author" content="CorridorOS Team">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="en">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="LightCorridorComputer v6 Interactive Demo - Quantum-Photonic Hybrid OS">
+    <meta property="og:description" content="Experience LightCorridorComputer: quantum-photonic hybrid processing, Free-Form Memory architecture, and Collective Synchrony Analytics in real-time.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mostafa-nasr-4277.github.io/CorridorOS/corridor-os.html">
+    <meta property="og:image" content="https://mostafa-nasr-4277.github.io/CorridorOS/brand/icons/corridoros-logo.svg">
+    <meta property="og:site_name" content="LightCorridorComputer">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LightCorridorComputer v6 Interactive Demo">
+    <meta name="twitter:description" content="Experience quantum-photonic hybrid processing and Free-Form Memory architecture in real-time.">
+    <meta name="twitter:image" content="https://mostafa-nasr-4277.github.io/CorridorOS/brand/icons/corridoros-logo.svg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mostafa-nasr-4277.github.io/CorridorOS/corridor-os.html">
+    <link rel="manifest" href="manifest.webmanifest">
+    <script>
+      // Early theme bootstrap: apply saved appearance before paint (best-effort)
+      (function(){
+        try{
+          var raw = localStorage.getItem('corridor-os-settings');
+          var body = document.documentElement; // temp until <body> exists
+          if(raw){
+            var s = JSON.parse(raw) || {};
+            var a = (s.appearance||{});
+            if(a.theme){ body.setAttribute('data-theme', a.theme); }
+            if(a.fontSize){ body.setAttribute('data-font-size', a.fontSize); }
+            if(a.wallpaper){ body.setAttribute('data-wallpaper', a.wallpaper); }
+            if(a.animations===false){ body.classList.add('no-animations'); }
+            if(a.transparency===false){ body.classList.add('no-transparency'); }
+          } else {
+            // Default to auto (follow system) when no saved settings
+            body.setAttribute('data-theme', 'auto');
+          }
+        }catch(e){
+          // Fallback: still prefer auto
+          document.documentElement.setAttribute('data-theme', 'auto');
+        }
+      })();
+    </script>
+    <style>
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+      }
+      
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      
+      .app-item:hover {
+        transform: translateY(-2px);
+        transition: transform 0.2s ease;
+      }
+      
+      .dock-app:hover {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+      }
+      
+      .quantum-note:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(0,200,255,.5);
+      }
+      
+      .memory-room:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0,200,255,.3);
+      }
+    </style>
+    <link rel="stylesheet" href="corridor-os-styles.84d8f5a3.4b83d951.css">
+    <!-- Fallback in case hashed asset fails to load -->
+    <link rel="stylesheet" href="corridor-os-styles.c221d2bc.css">
+    <!-- Mobile overrides -->
+    <link rel="stylesheet" href="corridor-os-mobile.7e832e8c.css">
+    <link rel="stylesheet" href="corridor-mobile-enhanced.19f403d1.css">
+    <link rel="stylesheet" href="corridor-mobile-apps.d207ffa0.css">
+    <link rel="stylesheet" href="brand/corridoros-brand.b501abdc.b501abdc.css">
+    <!-- App icons -->
+    <link rel="icon" type="image/svg+xml" href="brand/icons/corridoros-logo.svg">
+    <link rel="mask-icon" href="brand/icons/corridoros-logo.svg" color="#00c8ff">
 </head>
 <body>
     <!-- Boot Splash Screen -->
@@ -15,12 +113,21 @@
             <div class="quantum-spinner"></div>
             <h1>Corridor OS</h1>
             <p>Hybrid Quantum-Photonic Operating System</p>
+            <div class="co-boot-icons">
+                <img src="brand/icons/logo-cube.svg" alt="Corridor Cube"/>
+                <img src="brand/icons/icon-quantum.svg" alt="Quantum"/>
+                <img src="brand/icons/icon-memory.svg" alt="Free-Form Memory"/>
+                <img src="brand/icons/icon-analytics.svg" alt="Synchrony Analytics"/>
+            </div>
         </div>
         <div class="boot-progress">
             <div class="progress-bar">
                 <div class="progress-fill" id="boot-progress-fill"></div>
             </div>
             <div class="boot-status" id="boot-status">Initializing quantum substrate...</div>
+            <label for="fast-boot-toggle" style="display:inline-flex;align-items:center;gap:8px;margin-top:10px;color:rgba(255,255,255,.85);font-size:13px;">
+                <input type="checkbox" id="fast-boot-toggle" style="accent-color:#00d4ff;"> ⚡ Fast Boot
+            </label>
         </div>
     </div>
 
@@ -34,7 +141,7 @@
             <div class="panel-left">
                 <button class="activities-button" onclick="showActivitiesOverview()">
                     <span class="corridor-logo"></span>
-                    Activities
+                    Applications
                 </button>
                 <div class="app-menu">
                     <button class="menu-item" onclick="openApp('terminal')">Terminal</button>
@@ -47,11 +154,24 @@
                 <div class="clock" id="desktop-clock"></div>
             </div>
             <div class="panel-right">
-                <button class="panel-button" onclick="openApp('network-manager')">
-                    <span class="icon">📶</span>
+                <button class="panel-button" id="notificationsToggle" title="Notifications" aria-controls="notifications-panel" aria-expanded="false" aria-haspopup="true" onclick="toggleNotificationsPanel()">
+                    <span class="icon">🔔</span>
+                    <span class="badge" id="notificationsBadge" style="display:none;">0</span>
                 </button>
-                <button class="panel-button" onclick="openApp('power-manager')">
-                    <span class="icon">🔋</span>
+                <button class="panel-button" id="themeToggle" title="Theme (Light/Dark/System)" onclick="toggleThemeMenu()">
+                    <span class="icon" id="themeToggleIcon">🖥️</span>
+                </button>
+                <button class="panel-button" onclick="openApp('network-manager')" title="Network">
+                    <span class="icon" id="networkIcon">📶</span>
+                </button>
+                <button class="panel-button" onclick="openApp('power-manager')" title="Battery">
+                    <span class="icon" id="batteryIcon">🔋</span>
+                </button>
+                <button class="panel-button" onclick="restartSession()" title="Restart Session">
+                    <span class="icon">🔄</span>
+                </button>
+                <button class="panel-button" onclick="corridorOS.showMobileAppSwitcher()" title="App Switcher">
+                    <span class="icon">🧭</span>
                 </button>
                 <button class="panel-button" onclick="openApp('settings')">
                     <span class="icon">⚙️</span>
@@ -71,11 +191,29 @@
                 <button class="dock-app" onclick="openApp('files')" title="Files">
                     <span class="app-icon">📁</span>
                 </button>
+                <button class="dock-app" onclick="openApp('vytall')" title="Vytall Health">
+                    <span class="app-icon">❤️</span>
+                </button>
+                <button class="dock-app" onclick="openApp('redseaportal')" title="RedSea Portal">
+                    <img src="apps/redseaportal/redsea-ios-icon.png?v=2" alt="RedSea Portal" class="app-icon" style="width: 32px; height: 32px; border-radius: 6px;">
+                </button>
+                <button class="dock-app" onclick="openApp('neural-painter')" title="Neural Painter">
+                    <span class="app-icon">🎨</span>
+                </button>
+                <button class="dock-app" onclick="openApp('quantum-composer')" title="Quantum Composer">
+                    <span class="app-icon">🎼</span>
+                </button>
+                <button class="dock-app" onclick="openApp('music-player')" title="Music Player">
+                    <span class="app-icon">🎵</span>
+                </button>
                 <button class="dock-app" onclick="openApp('quantum-lab')" title="Quantum Lab">
                     <span class="app-icon">⚛️</span>
                 </button>
                 <button class="dock-app" onclick="openApp('photonic-studio')" title="Photonic Studio">
                     <span class="app-icon">🌟</span>
+                </button>
+                <button class="dock-app" onclick="openApp('hologram-studio')" title="Hologram Studio">
+                    <span class="app-icon">👁️</span>
                 </button>
                 <button class="dock-app" onclick="openApp('corridor-computer')" title="Corridor Computer">
                     <span class="app-icon">🔬</span>
@@ -93,7 +231,7 @@
         <!-- Activities Overview -->
         <div id="activities-overview" class="activities-overview" style="display: none;">
             <div class="overview-search">
-                <input type="text" placeholder="Type to search applications..." id="app-search">
+                <input type="text" placeholder="Type to search applications..." id="app-search" onkeyup="searchApps(this.value)">
             </div>
             <div class="overview-workspaces">
                 <div class="workspace active" onclick="switchWorkspace(1)">
@@ -127,6 +265,54 @@
                         <span class="app-icon">🌟</span>
                         <span class="app-name">Photonic Studio</span>
                     </div>
+                    <div class="app-item" onclick="openApp('vytall')">
+                        <span class="app-icon">❤️</span>
+                        <span class="app-name">Vytall Health</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('redseaportal')">
+                        <span class="app-icon">🧭</span>
+                        <span class="app-name">RedSea Portal</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('neural-painter')">
+                        <span class="app-icon">🎨</span>
+                        <span class="app-name">Neural Painter</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('quantum-composer')">
+                        <span class="app-icon">🎼</span>
+                        <span class="app-name">Quantum Composer</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('hologram-studio')">
+                        <span class="app-icon">👁️</span>
+                        <span class="app-name">Hologram Studio</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('memory-palace')">
+                        <span class="app-icon">🏰</span>
+                        <span class="app-name">Memory Palace</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('time-capsule')">
+                        <span class="app-icon">⏰</span>
+                        <span class="app-name">Time Capsule</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('dream-logger')">
+                        <span class="app-icon">💭</span>
+                        <span class="app-name">Dream Logger</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('cosmic-navigator')">
+                        <span class="app-icon">🌌</span>
+                        <span class="app-name">Cosmic Navigator</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('molecular-simulator')">
+                        <span class="app-icon">⚗️</span>
+                        <span class="app-name">Molecular Simulator</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('reality-mixer')">
+                        <span class="app-icon">🌀</span>
+                        <span class="app-name">Reality Mixer</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('emotion-analyzer')">
+                        <span class="app-icon">😊</span>
+                        <span class="app-name">Emotion Analyzer</span>
+                    </div>
                     <div class="app-item" onclick="openApp('corridor-computer')">
                         <span class="app-icon">🔬</span>
                         <span class="app-name">Corridor Computer</span>
@@ -143,12 +329,16 @@
                         <span class="app-icon">📝</span>
                         <span class="app-name">Text Editor</span>
                     </div>
+                    <div class="app-item" onclick="openApp('ide')">
+                        <span class="app-icon">🧑‍💻</span>
+                        <span class="app-name">IDE</span>
+                    </div>
                     <div class="app-item" onclick="openApp('calculator')">
                         <span class="app-icon">🧮</span>
                         <span class="app-name">Calculator</span>
                     </div>
                     <div class="app-item" onclick="openApp('image-viewer')">
-                        <span class="app-icon">🖼️</span>
+                        <span class="app-icon">🖼</span>
                         <span class="app-name">Image Viewer</span>
                     </div>
                     <div class="app-item" onclick="openApp('music-player')">
@@ -158,6 +348,10 @@
                     <div class="app-item" onclick="openApp('video-player')">
                         <span class="app-icon">🎬</span>
                         <span class="app-name">Video Player</span>
+                    </div>
+                    <div class="app-item" onclick="openApp('ambient-lab')">
+                        <span class="app-icon">🌤</span>
+                        <span class="app-name">Ambient Lab</span>
                     </div>
                 </div>
             </div>
@@ -191,6 +385,13 @@
             </div>
         </div>
 
+        <!-- Theme Menu (Light/Dark/System Auto) -->
+        <div id="theme-menu" class="user-menu" style="display:none;">
+            <div class="menu-item" data-theme-choice="light" onclick="setThemeChoice('light')"><span class="icon">🌞</span> Light</div>
+            <div class="menu-item" data-theme-choice="dark" onclick="setThemeChoice('dark')"><span class="icon">🌙</span> Dark</div>
+            <div class="menu-item" data-theme-choice="auto" onclick="setThemeChoice('auto')"><span class="icon">🖥️</span> System (Auto)</div>
+        </div>
+
         <!-- Context Menu -->
         <div id="context-menu" class="context-menu" style="display: none;">
             <div class="menu-item" onclick="createFile()">New File</div>
@@ -213,8 +414,21 @@
             </div>
         </div>
 
-        <!-- Notifications -->
+        <!-- Toast Notifications (ephemeral) -->
         <div id="notifications" class="notifications"></div>
+
+        <!-- Notifications Panel (persistent) -->
+        <aside id="notifications-panel" class="notifications-panel" aria-hidden="true">
+            <div class="notifications-header">
+                <div class="title">Notifications</div>
+                <div class="actions">
+                    <button class="clear-all" onclick="clearAllNotifications()" title="Clear all">Clear All</button>
+                    <button class="close-panel" onclick="toggleNotificationsPanel()" title="Close">×</button>
+                </div>
+            </div>
+            <div id="notifications-list" class="notifications-list" role="list"></div>
+            <div id="notifications-empty" class="notifications-empty" style="display:none;">No notifications</div>
+        </aside>
     </div>
 
     <!-- Lock Screen -->
@@ -231,25 +445,263 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="corridor-os.js"></script>
-    <script src="corridor-apps.js"></script>
-    <script src="corridor-settings.js"></script>
-    <script src="corridor-window-manager.js"></script>
+    <!-- Scripts: load in correct order -->
+    <!-- Backend configuration (uncomment and configure for cloud sync) -->
+    <!--
+    <script>
+        window.CORRIDOR_BACKEND = {
+            provider: 'supabase',
+            supabase: { 
+                url: 'https://YOUR-PROJECT.supabase.co', 
+                key: 'YOUR-ANON-KEY', 
+                table: 'corridor_kv' 
+            }
+        };
+    </script>
+    -->
+    <!-- Backend adapter (local-first with optional cloud hooks) -->
+    <script src="backend/corridor-backend.js"></script>
+    <!-- Mobile enhancements -->
+    <script src="corridor-mobile.31cf78fa.js"></script>
+    <script src="corridor-mobile-apps.36f1da8f.js"></script>
+    
+    <!-- Notification System -->
+    <script>
+        // Notification System
+        let notificationCount = 0;
+        let notifications = [];
+        
+        function showNotification(title, content, type = 'info', duration = 5000) {
+            const notification = {
+                id: Date.now(),
+                title,
+                content,
+                type,
+                timestamp: new Date()
+            };
+            
+            notifications.push(notification);
+            notificationCount++;
+            
+            updateNotificationBadge();
+            createNotificationElement(notification);
+            
+            // Auto-dismiss after duration
+            if (duration > 0) {
+                setTimeout(() => {
+                    dismissNotification(notification.id);
+                }, duration);
+            }
+        }
+        
+        function createNotificationElement(notification) {
+            const container = document.getElementById('notifications');
+            if (!container) return;
+            
+            const element = document.createElement('div');
+            element.className = `notification notification-${notification.type}`;
+            element.dataset.id = notification.id;
+            
+            element.innerHTML = `
+                <div class="notification-title">${notification.title}</div>
+                <div class="notification-content">${notification.content}</div>
+                <button class="notification-close" onclick="dismissNotification(${notification.id})" title="Dismiss">×</button>
+            `;
+            
+            // Add swipe-to-dismiss for mobile
+            if (window.corridorMobile && window.corridorMobile.isMobile) {
+                addSwipeToDismiss(element, notification.id);
+            }
+            
+            container.appendChild(element);
+            
+            // Trigger animation
+            setTimeout(() => {
+                element.classList.add('show');
+            }, 10);
+        }
+        
+        function addSwipeToDismiss(element, notificationId) {
+            let startX = 0;
+            let startY = 0;
+            let currentX = 0;
+            let isDragging = false;
+            
+            element.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                isDragging = true;
+                element.style.transition = 'none';
+            });
+            
+            element.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                
+                currentX = e.touches[0].clientX;
+                const deltaX = currentX - startX;
+                const deltaY = Math.abs(e.touches[0].clientY - startY);
+                
+                // Only allow horizontal swipe
+                if (deltaY > 30) {
+                    isDragging = false;
+                    return;
+                }
+                
+                // Swipe right to dismiss
+                if (deltaX > 0) {
+                    element.style.transform = `translateX(${Math.min(deltaX, 100)}px)`;
+                    element.style.opacity = Math.max(0.3, 1 - (deltaX / 100));
+                }
+            });
+            
+            element.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                
+                const deltaX = currentX - startX;
+                element.style.transition = 'all 0.3s ease';
+                
+                if (deltaX > 50) {
+                    // Dismiss notification
+                    dismissNotification(notificationId);
+                } else {
+                    // Snap back
+                    element.style.transform = 'translateX(0)';
+                    element.style.opacity = '1';
+                }
+                
+                isDragging = false;
+            });
+        }
+        
+        function dismissNotification(id) {
+            const element = document.querySelector(`[data-id="${id}"]`);
+            if (element) {
+                element.classList.add('dismissing');
+                setTimeout(() => {
+                    element.remove();
+                }, 300);
+            }
+            
+            notifications = notifications.filter(n => n.id !== id);
+            notificationCount = Math.max(0, notificationCount - 1);
+            updateNotificationBadge();
+        }
+        
+        function updateNotificationBadge() {
+            const badge = document.getElementById('notificationsBadge');
+            if (badge) {
+                if (notificationCount > 0) {
+                    badge.textContent = notificationCount;
+                    badge.style.display = 'inline';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+        
+        function toggleNotificationsPanel() {
+            const panel = document.getElementById('notifications-panel');
+            const toggle = document.getElementById('notificationsToggle');
+            if (!panel) return;
+            const isOpen = panel.classList.contains('open');
+            panel.classList.toggle('open');
+            panel.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+            if (toggle) toggle.setAttribute('aria-expanded', (!isOpen).toString());
+        }
+        
+        function clearAllNotifications() {
+            const container = document.getElementById('notifications');
+            if (container) {
+                container.innerHTML = '';
+            }
+            
+            notifications = [];
+            notificationCount = 0;
+            updateNotificationBadge();
+        }
+        
+        // Initialize notification system
+        document.addEventListener('DOMContentLoaded', () => {
+            // Clear any existing notifications on load
+            clearAllNotifications();
+        });
+    </script>
+    <!-- Window manager: load first so apps can use it -->
+    <script src="corridor-window-manager.c77d7ebd.js"></script>
+    <!-- Apps: load after window manager -->
+    <script src="corridor-apps.c8e7ee56.js"></script>
+    <!-- Settings: load after apps -->
+    <script src="corridor-settings.3e9b371a.js"></script>
+    <!-- Main OS: load after all dependencies -->
+    <script src="corridor-os.f72f39d2.js"></script>
+    <!-- Unified Model and Ambient Lab app -->
+    <script src="unified-model.b8dbcea7.js"></script>
+    <script src="ambient-lab.8bce9415.js"></script>
     
     <!-- Include existing Corridor Computer scripts -->
-    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
-    <script src="ui-tilt.js"></script>
-    <script src="ui-menu.js"></script>
-    <script src="navigation.js"></script>
-    <script src="three-hero.js"></script>
-    <script src="auto-cycle.js"></script>
-    <script src="quantum.js"></script>
-    <script src="photon.js"></script>
-    <script src="memory.js"></script>
-    <script src="orchestrator.js"></script>
-    <script src="heliopass.js"></script>
-    <script src="thermal-model.js"></script>
-    <script src="main.js"></script>
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js" defer crossorigin="anonymous"></script>
+    <script src="ui-tilt.b51314b6.b51314b6.js" defer></script>
+    <script src="ui-menu.81b02d2d.81b02d2d.js" defer></script>
+    <script src="navigation.86de970c.3f07789e.js" defer></script>
+    <script src="three-hero.3cc2b982.js" defer></script>
+    <script src="auto-cycle.4e9369db.4e9369db.js" defer></script>
+    <script src="quantum.c1f0f509.c1f0f509.js"></script>
+    <script src="photon.97ae7c85.97ae7c85.js"></script>
+    <script src="memory.6733243c.6733243c.js"></script>
+    <script src="orchestrator.d7eef59f.d7eef59f.js"></script>
+    <script src="heliopass.3ddbc0d6.3ddbc0d6.js"></script>
+    <script src="thermal-model.38b09692.js"></script>
+    <script src="main.8ebdafca.8ebdafca.js"></script>
 </body>
+<script>
+  // Register service worker for offline support even when landing directly on OS page
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+    });
+  }
+  
+  // Enhanced search functionality
+  function searchApps(query) {
+    const container = document.querySelector('.overview-apps');
+    const appItems = document.querySelectorAll('.app-item');
+    const searchTerm = (query || '').toLowerCase().trim();
+    
+    appItems.forEach(item => {
+      const nameEl = item.querySelector('.app-name');
+      const iconEl = item.querySelector('.app-icon');
+      const appName = (nameEl && nameEl.textContent ? nameEl.textContent : '').toLowerCase();
+      const appIcon = iconEl && iconEl.textContent ? iconEl.textContent : '';
+      
+      if (searchTerm === '' || 
+          appName.includes(searchTerm) || 
+          appIcon.includes(searchTerm) ||
+          item.getAttribute('onclick').toLowerCase().includes(searchTerm)) {
+        item.style.display = 'flex';
+        item.style.opacity = '1';
+      } else {
+        item.style.display = 'none';
+        item.style.opacity = '0';
+      }
+    });
+    
+    // Show "No results" message if no apps match
+    const visibleApps = Array.from(appItems).filter(item => item.style.display !== 'none');
+    const noResultsMsg = document.getElementById('no-results-msg');
+    
+    if (visibleApps.length === 0 && searchTerm !== '') {
+      if (!noResultsMsg) {
+        const msg = document.createElement('div');
+        msg.id = 'no-results-msg';
+        msg.style.textAlign = 'center';
+        msg.style.padding = '40px';
+        msg.style.opacity = '0.7';
+        msg.innerHTML = 'No applications found matching "' + query + '"';
+        if (container) container.appendChild(msg);
+      }
+    } else if (noResultsMsg) {
+      noResultsMsg.remove();
+    }
+  }
+</script>
 </html>
