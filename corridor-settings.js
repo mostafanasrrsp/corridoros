@@ -189,15 +189,23 @@ class CorridorSettings {
         document.querySelectorAll('.settings-category').forEach(cat => {
             cat.classList.remove('active');
         });
-        event.target.closest('.settings-category').classList.add('active');
+        
+        // Check if event exists (it might not in some contexts)
+        if (typeof event !== 'undefined' && event.target) {
+            const categoryElement = event.target.closest('.settings-category');
+            if (categoryElement) categoryElement.classList.add('active');
+        }
         
         // Update header
-        document.getElementById('settings-title').textContent = name;
-        document.getElementById('settings-subtitle').textContent = description;
+        const titleElement = document.getElementById('settings-title');
+        const subtitleElement = document.getElementById('settings-subtitle');
+        
+        if (titleElement) titleElement.textContent = name;
+        if (subtitleElement) subtitleElement.textContent = description;
         
         // Update panel content
         const panel = document.getElementById('settings-panel');
-        panel.innerHTML = this.renderCategorySettings(categoryId);
+        if (panel) panel.innerHTML = this.renderCategorySettings(categoryId);
     }
     
     renderCategorySettings(categoryId) {
