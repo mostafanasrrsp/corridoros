@@ -127,6 +127,10 @@ class CorridorSettings {
         
         this.currentCategory = 'system';
         this.searchQuery = '';
+
+        // Load saved settings and apply initial effects
+        this.loadSettings();
+        this.applyInitialSettings();
     }
     
     createSettingsWindow() {
@@ -185,19 +189,45 @@ class CorridorSettings {
     selectCategory(categoryId, name, description) {
         this.currentCategory = categoryId;
         
-        // Update active category
+        // Update active category without relying on global event
         document.querySelectorAll('.settings-category').forEach(cat => {
             cat.classList.remove('active');
         });
-        event.target.closest('.settings-category').classList.add('active');
+        const activeEl = Array.from(document.querySelectorAll('.settings-category'))
+            .find(el => el.getAttribute('onclick')?.includes(`'${categoryId}'`));
+        if (activeEl) {
+            activeEl.classList.add('active');
+        }
         
         // Update header
-        document.getElementById('settings-title').textContent = name;
-        document.getElementById('settings-subtitle').textContent = description;
+        const titleEl = document.getElementById('settings-title');
+        const subEl = document.getElementById('settings-subtitle');
+        if (titleEl) titleEl.textContent = name;
+        if (subEl) subEl.textContent = description;
         
         // Update panel content
         const panel = document.getElementById('settings-panel');
-        panel.innerHTML = this.renderCategorySettings(categoryId);
+        if (panel) panel.innerHTML = this.renderCategorySettings(categoryId);
+    }
+
+    applyInitialSettings() {
+        // Apply theme
+        if (this.settings.appearance?.theme) {
+            document.body.setAttribute('data-theme', this.settings.appearance.theme);
+        }
+        // Apply animations toggle
+        if (typeof this.settings.appearance?.animations === 'boolean') {
+            document.body.classList.toggle('no-animations', !this.settings.appearance.animations);
+        }
+        // Apply font size
+        if (this.settings.appearance?.fontSize) {
+            document.body.setAttribute('data-font-size', this.settings.appearance.fontSize);
+        }
+        // Sync lock delay to OS auto-lock (ms)
+        if (window.corridorOS && typeof this.settings.privacy?.lockDelay === 'number') {
+            window.corridorOS.preferences.autoLock = this.settings.privacy.lockDelay * 1000;
+            window.corridorOS.resetAutoLockTimer();
+        }
     }
     
     renderCategorySettings(categoryId) {

@@ -734,10 +734,26 @@ def create_bell_state():
     // Calculator methods
     calcInput(value) {
         const display = document.getElementById('calc-result');
-        if (display.textContent === '0') {
+        const current = display.textContent || '0';
+        if (value === '±') {
+            if (current.startsWith('-')) {
+                display.textContent = current.substring(1);
+            } else if (current !== '0') {
+                display.textContent = '-' + current;
+            }
+            return;
+        }
+        if (value === '%') {
+            const num = parseFloat(current);
+            if (!isNaN(num)) {
+                display.textContent = (num / 100).toString();
+            }
+            return;
+        }
+        if (current === '0' && /[0-9.]/.test(value)) {
             display.textContent = value;
         } else {
-            display.textContent += value;
+            display.textContent = current + value;
         }
     }
     
