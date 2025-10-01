@@ -93,8 +93,11 @@ class CorridorOS {
     
     completeBootSequence() {
         this.isBooted = true;
-        document.getElementById('boot-splash').style.display = 'none';
-        document.getElementById('desktop').style.display = 'block';
+        const bootSplash = document.getElementById('boot-splash');
+        const desktop = document.getElementById('desktop');
+        
+        if (bootSplash) bootSplash.style.display = 'none';
+        if (desktop) desktop.style.display = 'block';
         
         // Show welcome notification
         this.showNotification('Welcome to Corridor OS', 'Hybrid Quantum-Photonic Operating System ready for use.');
@@ -213,6 +216,8 @@ class CorridorOS {
     
     showContextMenu(x, y) {
         const contextMenu = document.getElementById('context-menu');
+        if (!contextMenu) return;
+        
         contextMenu.style.display = 'block';
         contextMenu.style.left = `${x}px`;
         contextMenu.style.top = `${y}px`;
@@ -229,31 +234,37 @@ class CorridorOS {
     
     hideContextMenu() {
         const contextMenu = document.getElementById('context-menu');
-        contextMenu.style.display = 'none';
+        if (contextMenu) contextMenu.style.display = 'none';
     }
     
     showUserMenu() {
         const userMenu = document.getElementById('user-menu');
+        if (!userMenu) return;
+        
         userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
     }
     
     hideUserMenu() {
         const userMenu = document.getElementById('user-menu');
-        userMenu.style.display = 'none';
+        if (userMenu) userMenu.style.display = 'none';
     }
     
     showActivitiesOverview() {
         const overview = document.getElementById('activities-overview');
+        if (!overview) return;
+        
         overview.style.display = 'flex';
         
         // Focus search input
         const searchInput = document.getElementById('app-search');
-        setTimeout(() => searchInput.focus(), 100);
+        if (searchInput) {
+            setTimeout(() => searchInput.focus(), 100);
+        }
     }
     
     hideActivitiesOverview() {
         const overview = document.getElementById('activities-overview');
-        overview.style.display = 'none';
+        if (overview) overview.style.display = 'none';
     }
     
     hideOverlays() {
@@ -319,24 +330,34 @@ class CorridorOS {
     
     lockScreen() {
         this.isLocked = true;
-        document.getElementById('lock-screen').style.display = 'flex';
-        document.getElementById('desktop').style.display = 'none';
+        const lockScreen = document.getElementById('lock-screen');
+        const desktop = document.getElementById('desktop');
+        
+        if (lockScreen) lockScreen.style.display = 'flex';
+        if (desktop) desktop.style.display = 'none';
         
         // Clear password input
         const passwordInput = document.getElementById('password-input');
-        passwordInput.value = '';
-        setTimeout(() => passwordInput.focus(), 100);
+        if (passwordInput) {
+            passwordInput.value = '';
+            setTimeout(() => passwordInput.focus(), 100);
+        }
     }
     
     unlock() {
         const passwordInput = document.getElementById('password-input');
+        if (!passwordInput) return;
+        
         const password = passwordInput.value;
         
         // Simple password check (in real OS this would be properly secured)
         if (password === 'corridor' || password === '') {
             this.isLocked = false;
-            document.getElementById('lock-screen').style.display = 'none';
-            document.getElementById('desktop').style.display = 'block';
+            const lockScreen = document.getElementById('lock-screen');
+            const desktop = document.getElementById('desktop');
+            
+            if (lockScreen) lockScreen.style.display = 'none';
+            if (desktop) desktop.style.display = 'block';
             this.resetAutoLockTimer();
         } else {
             // Shake animation for wrong password
@@ -365,13 +386,19 @@ class CorridorOS {
         if (confirm('Are you sure you want to log out?')) {
             // Close all windows
             this.openWindows.clear();
-            document.getElementById('windows-container').innerHTML = '';
+            const windowsContainer = document.getElementById('windows-container');
+            if (windowsContainer) windowsContainer.innerHTML = '';
             
             // Show boot splash as logout screen
-            document.getElementById('desktop').style.display = 'none';
-            document.getElementById('boot-splash').style.display = 'flex';
-            document.getElementById('boot-status').textContent = 'Logging out...';
-            document.getElementById('boot-progress-fill').style.width = '100%';
+            const desktop = document.getElementById('desktop');
+            const bootSplash = document.getElementById('boot-splash');
+            const bootStatus = document.getElementById('boot-status');
+            const bootProgressFill = document.getElementById('boot-progress-fill');
+            
+            if (desktop) desktop.style.display = 'none';
+            if (bootSplash) bootSplash.style.display = 'flex';
+            if (bootStatus) bootStatus.textContent = 'Logging out...';
+            if (bootProgressFill) bootProgressFill.style.width = '100%';
             
             // Simulate logout process
             setTimeout(() => {

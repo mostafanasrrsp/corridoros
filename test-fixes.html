@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorridorOS Bug Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .pass { background: #2d5a27; }
+        .fail { background: #5a2727; }
+        button {
+            background: #E95420;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #d14b1f; }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: #2d2d44;
+            color: white;
+        }
+        #calc-result {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>CorridorOS Bug Fix Tests</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Calculator Security Fix</h2>
+        <p>Testing the calculator with safe evaluation instead of eval()</p>
+        <div id="calc-result">0</div>
+        <button onclick="testCalc('2+3')">Test: 2+3</button>
+        <button onclick="testCalc('10*5')">Test: 10*5</button>
+        <button onclick="testCalc('100/4')">Test: 100/4</button>
+        <button onclick="testCalc('alert(1)')">Test: alert(1) (should be safe)</button>
+        <button onclick="corridorApps.calcClear()">Clear</button>
+        <div id="calc-test-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Null Check Protection</h2>
+        <p>Testing functions with missing DOM elements</p>
+        <button onclick="testNullChecks()">Run Null Check Tests</button>
+        <div id="null-test-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Error Handling</h2>
+        <p>Testing error handling in various functions</p>
+        <button onclick="testErrorHandling()">Run Error Handling Tests</button>
+        <div id="error-test-results"></div>
+    </div>
+
+    <!-- Include the fixed scripts -->
+    <script src="corridor-os.js"></script>
+    <script src="corridor-apps.js"></script>
+    <script src="corridor-window-manager.js"></script>
+    <script src="corridor-settings.js"></script>
+    
+    <script>
+        // Test functions
+        function testCalc(expression) {
+            const display = document.getElementById('calc-result');
+            display.textContent = expression;
+            corridorApps.calcEquals();
+            
+            const result = display.textContent;
+            const resultsDiv = document.getElementById('calc-test-results');
+            
+            let testResult = '';
+            if (expression === 'alert(1)') {
+                // This should show "Error" or a safe result, not execute alert
+                testResult = result === 'Error' ? 'PASS: Malicious code blocked' : 'FAIL: Security issue';
+            } else {
+                // Normal math should work
+                const expected = {
+                    '2+3': '5',
+                    '10*5': '50',
+                    '100/4': '25'
+                };
+                testResult = result === expected[expression] ? 'PASS' : `FAIL: Expected ${expected[expression]}, got ${result}`;
+            }
+            
+            const div = document.createElement('div');
+            div.className = `test-result ${testResult.startsWith('PASS') ? 'pass' : 'fail'}`;
+            div.textContent = `${expression} = ${result} - ${testResult}`;
+            resultsDiv.appendChild(div);
+        }
+        
+        function testNullChecks() {
+            const resultsDiv = document.getElementById('null-test-results');
+            resultsDiv.innerHTML = '';
+            
+            const tests = [
+                {
+                    name: 'showActivitiesOverview with missing element',
+                    test: () => {
+                        // Temporarily remove the element
+                        const overview = document.getElementById('activities-overview');
+                        if (overview) overview.remove();
+                        
+                        try {
+                            window.corridorOS.showActivitiesOverview();
+                            return 'PASS: No error thrown';
+                        } catch (e) {
+                            return `FAIL: Error thrown - ${e.message}`;
+                        }
+                    }
+                },
+                {
+                    name: 'lockScreen with missing elements',
+                    test: () => {
+                        try {
+                            window.corridorOS.lockScreen();
+                            return 'PASS: No error thrown';
+                        } catch (e) {
+                            return `FAIL: Error thrown - ${e.message}`;
+                        }
+                    }
+                },
+                {
+                    name: 'Calculator with missing display',
+                    test: () => {
+                        // Temporarily remove calc display
+                        const display = document.getElementById('calc-result');
+                        const originalId = display.id;
+                        display.id = 'temp-hidden';
+                        
+                        try {
+                            corridorApps.calcInput('5');
+                            display.id = originalId; // Restore
+                            return 'PASS: No error thrown';
+                        } catch (e) {
+                            display.id = originalId; // Restore
+                            return `FAIL: Error thrown - ${e.message}`;
+                        }
+                    }
+                }
+            ];
+            
+            tests.forEach(test => {
+                const result = test.test();
+                const div = document.createElement('div');
+                div.className = `test-result ${result.startsWith('PASS') ? 'pass' : 'fail'}`;
+                div.textContent = `${test.name}: ${result}`;
+                resultsDiv.appendChild(div);
+            });
+        }
+        
+        function testErrorHandling() {
+            const resultsDiv = document.getElementById('error-test-results');
+            resultsDiv.innerHTML = '';
+            
+            const tests = [
+                {
+                    name: 'Window creation with invalid parameters',
+                    test: () => {
+                        try {
+                            const result = window.corridorWindowManager.createWindow();
+                            return result === null ? 'PASS: Returned null for invalid params' : 'FAIL: Should return null';
+                        } catch (e) {
+                            return `FAIL: Error thrown - ${e.message}`;
+                        }
+                    }
+                },
+                {
+                    name: 'Settings category selection with missing elements',
+                    test: () => {
+                        try {
+                            window.corridorSettings.selectCategory('test', 'Test', 'Test description');
+                            return 'PASS: No error thrown';
+                        } catch (e) {
+                            return `FAIL: Error thrown - ${e.message}`;
+                        }
+                    }
+                }
+            ];
+            
+            tests.forEach(test => {
+                const result = test.test();
+                const div = document.createElement('div');
+                div.className = `test-result ${result.startsWith('PASS') ? 'pass' : 'fail'}`;
+                div.textContent = `${test.name}: ${result}`;
+                resultsDiv.appendChild(div);
+            });
+        }
+        
+        // Initialize after DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Test page loaded successfully');
+        });
+    </script>
+</body>
+</html>

@@ -654,7 +654,10 @@ def create_bell_state():
     
     processTerminalCommand(command) {
         const terminal = document.getElementById('terminal-content');
+        if (!terminal) return;
+        
         const currentLine = terminal.querySelector('.current-line');
+        if (!currentLine) return;
         
         // Add command to history
         const commandLine = document.createElement('div');
@@ -734,6 +737,8 @@ def create_bell_state():
     // Calculator methods
     calcInput(value) {
         const display = document.getElementById('calc-result');
+        if (!display) return;
+        
         if (display.textContent === '0') {
             display.textContent = value;
         } else {
@@ -743,20 +748,48 @@ def create_bell_state():
     
     calcClear() {
         const display = document.getElementById('calc-result');
+        if (!display) return;
+        
         display.textContent = '0';
     }
     
     calcEquals() {
         const display = document.getElementById('calc-result');
+        if (!display) return;
+        
         try {
             const expression = display.textContent
                 .replace(/×/g, '*')
                 .replace(/÷/g, '/')
                 .replace(/−/g, '-');
-            const result = eval(expression);
+            
+            // Safe math evaluation instead of eval()
+            const result = this.safeEvaluate(expression);
             display.textContent = result.toString();
         } catch (error) {
             display.textContent = 'Error';
+        }
+    }
+    
+    safeEvaluate(expression) {
+        // Remove any non-mathematical characters for security
+        const sanitized = expression.replace(/[^0-9+\-*/.() ]/g, '');
+        
+        // Simple calculator parser - only allows basic math operations
+        try {
+            // Use Function constructor instead of eval for better security
+            // This still has some risk but is safer than direct eval
+            const func = new Function('return ' + sanitized);
+            const result = func();
+            
+            // Validate result is a number
+            if (typeof result !== 'number' || !isFinite(result)) {
+                throw new Error('Invalid calculation');
+            }
+            
+            return result;
+        } catch (error) {
+            throw new Error('Invalid expression');
         }
     }
     

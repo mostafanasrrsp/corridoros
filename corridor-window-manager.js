@@ -16,14 +16,26 @@ class CorridorWindowManager {
     }
     
     createWindow(appId, title, icon, content, options = {}) {
+        if (!appId || !title || !content) {
+            console.error('Missing required parameters for window creation');
+            return null;
+        }
+        
         const windowId = `window-${appId}`;
+        
+        // Check if window already exists
+        if (this.windows.has(windowId)) {
+            const existingWindow = this.windows.get(windowId);
+            this.focusWindow(existingWindow.element);
+            return existingWindow.element;
+        }
         
         // Default window options
         const defaultOptions = {
             width: 800,
             height: 600,
-            x: Math.random() * (window.innerWidth - 800) + 100,
-            y: Math.random() * (window.innerHeight - 600) + 100,
+            x: Math.random() * (Math.max(window.innerWidth - 800, 100)) + 50,
+            y: Math.random() * (Math.max(window.innerHeight - 600, 100)) + 50,
             minWidth: 400,
             minHeight: 300,
             resizable: true,
@@ -66,6 +78,10 @@ class CorridorWindowManager {
         
         // Add to container
         const container = document.getElementById('windows-container');
+        if (!container) {
+            console.error('Windows container not found');
+            return null;
+        }
         container.appendChild(windowElement);
         
         // Store window data
